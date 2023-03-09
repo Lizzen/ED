@@ -1,6 +1,6 @@
 /*
-NOMBRE Y APELLIDOS PRIMER INTEGRANTE DEL GRUPO: ¡lvaro GÛmez Tejedor 
-NOMBRE Y APELLIDOS SEGUNDO INTEGRANTE DEL GRUPO: David Ferreras DÌaz
+NOMBRE Y APELLIDOS PRIMER INTEGRANTE DEL GRUPO: √Ålvaro G√≥mez Tejedor 
+NOMBRE Y APELLIDOS SEGUNDO INTEGRANTE DEL GRUPO: David Ferreras D√≠az
 USUARIO DEL JUEZ DOMJUDGE: B20
  */
 
@@ -8,14 +8,14 @@ USUARIO DEL JUEZ DOMJUDGE: B20
 /**
   @file Cola.h
 
-  ImplementaciÛn del TAD Cola utilizando una
+  Implementaci√≥n del TAD Cola utilizando una
   lista enlazada de nodos.
 
   Estructura de Datos y Algoritmos
-  Facultad de Inform·tica
+  Facultad de Inform√°tica
   Universidad Complutense de Madrid
 
- (c) Marco Antonio GÛmez MartÌn, 2012   Mercedes GÛmez Albarr·n, 2016
+ (c) Marco Antonio G√≥mez Mart√≠n, 2012   Mercedes G√≥mez Albarr√°n, 2016
 */
 #ifndef __COLA_LISTA_ENLAZADA_H
 #define __COLA_LISTA_ENLAZADA_H
@@ -23,47 +23,79 @@ USUARIO DEL JUEZ DOMJUDGE: B20
 #include <iostream>
 using namespace std;
 
-/// Excepciones generadas por algunos mÈtodos
+/// Excepciones generadas por algunos m√©todos
 class EColaVacia {};
 
 
 /**
- ImplementaciÛn del TAD Cola utilizando una lista enlazada.
+ Implementaci√≥n del TAD Cola utilizando una lista enlazada.
 
  Las operaciones son:
 
  - ColaVacia: -> Cola. Generadora implementada en el
-   constructor sin par·metros.
+   constructor sin par√°metros.
  - pon: Cola, Elem -> Cola. Generadora
  - quita: Cola - -> Cola. Modificadora parcial.
  - primero: Cola - -> Elem. Observadora parcial.
  - esVacia: Cola -> Bool. Observadora.
 
- @author Marco Antonio GÛmez MartÌn   Mercedes GÛmez Albarr·n
+ @author Marco Antonio G√≥mez Mart√≠n   Mercedes G√≥mez Albarr√°n
  */
 template <class T>
 class Cola {
 public:
-    /* COMPLEJIDAD: Determina justificadamente la complejidad de esta operaciÛn
-	
-	
+    /* COMPLEJIDAD: Determina justificadamente la complejidad de esta operaci√≥n
+		Complejidad lineal O(n).
+		Su complejidad se debe a que el algoritmo recorre solo una vez la lista hasta fin,
+		por lo tanto recorre n elementos y el tiempo de ejecuci√≥n
+		es proporcional al n√∫mero de elementos que hay en la cola.
 	*/
     void penalizaSecuencia(int inicio, int fin) {
 		/*  A IMPLEMENTAR */
-		Nodo* primero = _prim;
-		Nodo* ultimo = _ult;
+		if (fin > inicio || !esVacia()) {
+			Nodo* primero = NULL, *antPrimero = NULL;
+			Nodo* ultimo = NULL;
+			int numElems = 0;
+			Nodo* act = _prim;
 
-		for (int i = 0; i <= fin; ++i) {
-			if (inicio <= i) {
-				pon(_prim->_elem);
-				quita();
+			while (act != NULL && numElems < fin) {
+				if (inicio == 0) {
+					primero = _prim;
+					antPrimero = NULL;
+				}
+				if (numElems == inicio - 1) {
+					antPrimero = act;
+					primero = act->_sig;
+				}
+				else if (numElems == fin - 1) {
+					ultimo = act->_sig;
+				}
+
+				act = act->_sig;
+				++numElems;
 			}
-			else if (_prim == ultimo) {
-				i = fin + 1;
+
+			if (primero != NULL && ultimo != NULL) {
+				if (antPrimero == NULL) {
+					_prim = ultimo->_sig;
+				}
+				else {
+					antPrimero->_sig = ultimo->_sig;
+				}
+
+				if (ultimo == _ult) {
+					_ult = antPrimero;
+				}
+			}
+
+			ultimo->_sig = NULL;
+			if (_ult == NULL) {
+				_prim = primero;
 			}
 			else {
-				_prim->_sig;
+				_ult->_sig = primero;
 			}
+			_ult = ultimo;
 		}
 	}
 	
@@ -88,10 +120,10 @@ public:
 
 	
 	/**
-	 AÒade un elemento en la parte trasera de la cola.
-	 OperaciÛn generadora.
+	 A√±ade un elemento en la parte trasera de la cola.
+	 Operaci√≥n generadora.
 
-	 @param elem Elemento a aÒadir.
+	 @param elem Elemento a a√±adir.
 	*/
 	void pon(const T &elem) {
 		Nodo *nuevo = new Nodo(elem);
@@ -102,9 +134,9 @@ public:
 
 	/**
 	 Elimina el primer elemento de la cola.
-	 OperaciÛn modificadora parcial.
+	 Operaci√≥n modificadora parcial.
 
-	 error: falla si la cola est· vacÌa
+	 error: falla si la cola est√° vac√≠a
 	*/
 	void quita() {
 		if (esVacia())
@@ -118,10 +150,10 @@ public:
 	}
 
 	/**
-	 Devuelve el primer elemento de la cola. OperaciÛn
+	 Devuelve el primer elemento de la cola. Operaci√≥n
 	 observadora parcial.
 	 
-	 error: falla si la cola est· vacÌa
+	 error: falla si la cola est√° vac√≠a
 	 @return El primer elemento de la cola.
 	 */
 	const T &primero() const {
@@ -133,7 +165,7 @@ public:
 	/**
 	 Indica si la cola tiene elementos o no.
 
-	 @return true si la cola no tiene ning˙n elemento.
+	 @return true si la cola no tiene ning√∫n elemento.
 	 */
 	bool esVacia() const {
 		return _prim == NULL;
@@ -152,7 +184,7 @@ public:
 		copia(other);
 	}
 
-	/** Operador de asignaciÛn */
+	/** Operador de asignaci√≥n */
 	Cola<T> &operator=(const Cola<T> &other) {
 		if (this != &other) { 
 			libera();
@@ -161,7 +193,7 @@ public:
 		return *this;
 	}
 
-	/** Operador de comparaciÛn. */
+	/** Operador de comparaci√≥n. */
 	bool operator==(const Cola<T> &rhs) const {
 		Nodo *p1 = _prim;
 		Nodo *p2 = rhs._prim;
@@ -181,8 +213,8 @@ private:
 
 	/**
 	 Clase nodo que almacena internamente el elemento (de tipo T),
-	 y un puntero al nodo siguiente, que podrÌa ser NULL si
-	 el nodo es el ˙ltimo de la lista enlazada.
+	 y un puntero al nodo siguiente, que podr√≠a ser NULL si
+	 el nodo es el √∫ltimo de la lista enlazada.
 	 */
 	class Nodo {
 	public:
@@ -232,7 +264,7 @@ private:
 	/** Puntero al primer elemento. */
 	Nodo *_prim;
 
-	/** Puntero al ˙ltimo elemento. */
+	/** Puntero al √∫ltimo elemento. */
 	Nodo *_ult;
 };
 
