@@ -1,0 +1,70 @@
+Material proporcionado
+======================
+main.cpp: El programa principal que realiza la prueba de
+la función implementada, y la función a implementar. 
+Aparte de dicha función, pueden implementarse todas
+las funciones auxiliares que se considere oportuno.
+Debe indicarse, así mismo, la complejidad resultante
+en el comentario que precede a la función.
+
+
+Formato de los archivos de entrada
+==================================
+Cada línea contiene la descripción del mapa como
+un árbol binario. 
+Para escribir los árboles se sigue el siguiente convenio:
+-Los árboles vacíos se escriben como #
+-Los árboles simples se escriben como [c],
+ con 'c' el contenido del nodo.
+-Los árboles compuestos se escriben como 
+ (IcD), donde: (i) I es el hijo izquierdo;
+ (ii) c es el contenido de la raiz; 
+ (iii) D es el hijo derecho. 
+
+Formato de los archivos de salida
+=================================
+
+Para cada linea de la forma 
+
+mapa
+
+se genera una linea de la forma
+
+num_a_salvo mapa => n
+
+donde 'n' es el resultado de la operación sobre
+el mapa 'mapa'.
+
+Ejemplo: Al procesar la línea  
+
+((([C]D#)M([C]D[C]))M((#D([C]C[C]))M[D]))
+
+se escribe
+
+num_a_salvo ((([C]D#)M([C]D[C]))M((#D([C]C[C]))M[D])) => 2
+
+Ejemplos de entrada
+===================
+((([C]D#)M([C]D[C]))M((#D([C]C[C]))M[D]))
+[M]
+[D]
+#
+([D]M#)
+(#C[D])
+((#D[C])M([C]D#))
+(([D]D[D])D([D]D[D]))
+((([D]M[D])C([D]M[D]))M[D])
+(([M]C[M])M([C]C[M]))
+
+Salidas asociadas a los ejemplos de entrada
+===========================================
+num_a_salvo ((([C]D#)M([C]D[C]))M((#D([C]C[C]))M[D])) => 2
+num_a_salvo [M] => 0
+num_a_salvo [D] => 1
+num_a_salvo # => 0
+num_a_salvo ([D]M#) => 0
+num_a_salvo (#C[D]) => 1
+num_a_salvo ((#D[C])M([C]D#)) => 2
+num_a_salvo (([D]D[D])D([D]D[D])) => 7
+num_a_salvo ((([D]M[D])C([D]M[D]))M[D]) => 0
+num_a_salvo (([M]C[M])M([C]C[M])) => 0
