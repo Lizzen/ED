@@ -139,7 +139,8 @@ public:
 
 	/**
 	COMPLEJIDAD: Determinar aquí, justificadamente, la complejidad de la operación cortaPorK
-
+		La complejidad de la función depende del valor de k. En el caso peor, si k es 1, la complejidad de la función será O(n) ya que deberá mover 
+		todos los elementos de la lista receptor a la lista destino.
 
 	**/
 
