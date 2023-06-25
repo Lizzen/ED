@@ -1,0 +1,66 @@
+Material proporcionado
+======================
+main1.cpp: El programa principal que lee y ejecuta casos. 
+Dicho programa NO debe modificarse.
+
+pila.h: TAD Pila visto en clase, que incorpora el prototipo de la operación 
+pedida al principio de la parte pública. 
+El ejercicio debe resolverse en este archivo, realizando la implementación de 
+la operación, y justificando la complejidad en el comentario habilitado al respecto.
+
+IMPORTANTE: Debes incluir también tu nombre y apellidos y tu usuario del juez
+al comienzo de los comentarios que aparecen en el pila.h proporcionado. 
+
+Formato de los archivos de entrada 
+==================================
+Cada caso de prueba consiste en (1) el número de elementos de la pila
+a hanoificar; y (ii) la sucesión de números enteros que conforman la pila
+DESDE EL FONDO A LA CIMA.
+
+La secuencia de casos finaliza con una línea que contiene -1. 
+
+Formato de los archivos de salida
+=================================
+Para cada caso de prueba se imprimen los elementos de la pila hanoificada, DESDE LA CIMA AL FONDO,
+seguidos de #, seguidos de los elementos del resto devuelto por la operación, DESDE LA CIMA AL FONDO.
+
+
+Ejemplo de entrada 
+==================
+0
+
+1 
+100
+6 
+60 50 40 30 20 10
+6 
+50 40 30 20 5 10
+6 
+50 5 40 30 20 10
+6 
+5 50 40 30 20 10
+6 
+5 40 30 20 9 10
+6 
+10 20 30 40 50 60
+8 
+5 4 3 2 0 3 2 1
+7 
+-1 4 2 0 3 2 1
+-1
+
+
+Salida producida
+================
+#
+100 #
+10 20 30 40 50 60 #
+10 20 30 40 50 #5
+10 20 30 40 50 #5
+10 20 30 40 50 #5
+10 20 30 40 #9 5
+60 #50 40 30 20 10
+1 2 3 4 5 #0 2 3
+1 2 3 4 #0 2 -1
+
+El último caso se corresponde con el ejemplo del enunciado.
