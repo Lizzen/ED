@@ -21,21 +21,21 @@ bool esVocal(char c) {
 // por su inversa. 'mensaje' se deberá modificar con el resultado
 // de realizar dicho proceso. 
 void codifica(Lista<char>& mensaje) {
-    Lista<char> secNoVocal;							/*Lista de secuencia de consonantes*/
+    Lista<char> secNoVocal;				/*Lista de secuencia de consonantes*/
     Lista<char>::Iterator it = mensaje.begin();		/*Iterador de la lista mensaje*/
-    Lista<char>::Iterator elem = it;				/*Iterador auxiliar*/
+    Lista<char>::Iterator elem = it;			/*Iterador auxiliar*/
 
     while (it != mensaje.end()) {
-        bool cVocal = esVocal(it.elem());			/*Devuelve true si el char es una vocal*/
+        bool cVocal = esVocal(it.elem());		/*Devuelve true si el char es una vocal*/
 		
-		//Si no es una vocal, introducimos el elemento en la lista de consonantes (secNoVocal)
+	//Si no es una vocal, introducimos el elemento en la lista de consonantes (secNoVocal)
         if (!cVocal) {
             elem = it;
             it.next();
             secNoVocal.pon_final(elem.elem());
             mensaje.eliminar(elem);
         }
-		//Si es una vocal, insertamos las consonantes que haya en la lista de consonantes, de tal forma que se introducen a la inversa
+	//Si es una vocal, insertamos las consonantes que haya en la lista de consonantes, de tal forma que se introducen a la inversa
         else {
             if (!secNoVocal.esVacia()) {
                 while (!secNoVocal.esVacia()) {
@@ -47,7 +47,7 @@ void codifica(Lista<char>& mensaje) {
         }
     }
 	
-	//Verifica que se hayan invertido todas las consonantes
+    //Verifica que se hayan invertido todas las consonantes
     if (!secNoVocal.esVacia()) {
         while (!secNoVocal.esVacia()) {
             mensaje.insertar(secNoVocal.ultimo(), it);
@@ -68,7 +68,7 @@ void imprime(const Lista<char>& l) {
 }
 
 
-  // Transforma la linea en una lista de caracteres
+// Transforma la linea en una lista de caracteres
 void construyeMensaje(const string& linea, Lista<char>& mensaje) {
 	for(unsigned int i=0; i < linea.size(); i++)
 		mensaje.pon_final(linea[i]);  
