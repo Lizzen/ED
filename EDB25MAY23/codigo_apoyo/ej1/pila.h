@@ -1,5 +1,5 @@
 /**
-  NOMBRE Y APELLIDOS: David Ferreras Díaz
+  NOMBRE Y APELLIDOS: David Ferreras DÃ­az
   USUARIO DE DOMJUDGE USADO EN EL EXAMEN:
 */
 
@@ -7,14 +7,14 @@
 /**
   @file Pila.h
 
-  Implementación del TAD Pila utilizando una
+  ImplementaciÃ³n del TAD Pila utilizando una
   lista enlazada simple de nodos.
 
   Estructura de Datos y Algoritmos
-  Facultad de Informática
+  Facultad de InformÃ¡tica
   Universidad Complutense de Madrid
 
- (c) Marco Antonio Gómez Martín, 2012  Mercedes Gómez Albarrán, 2016
+ (c) Marco Antonio GÃ³mez MartÃ­n, 2012  Mercedes GÃ³mez AlbarrÃ¡n, 2016
 */
 #ifndef __PILA_LISTA_ENLAZADA_H
 #define __PILA_LISTA_ENLAZADA_H
@@ -23,70 +23,74 @@
 
 using namespace std;
 
-/// Excepciones generadas por algunos métodos
+/// Excepciones generadas por algunos mÃ©todos
 class EPilaVacia {};
 
 /**
- Implementación del TAD Pila utilizando una lista enlazada de nodos.
+ ImplementaciÃ³n del TAD Pila utilizando una lista enlazada de nodos.
 
  Las operaciones son:
 
  - PilaVacia: -> Pila. Generadora implementada en el
-   constructor sin parámetros.
+   constructor sin parÃ¡metros.
  - apila: Pila, Elem -> Pila. Generadora
  - desapila: Pila - -> Pila. Modificadora parcial.
  - cima: Pila - -> Elem. Observadora parcial.
  - esVacia: Pila -> Bool. Observadora.
 
- @author Marco Antonio Gómez Martín  Mercedes Gómez Albarrán
+ @author Marco Antonio GÃ³mez MartÃ­n  Mercedes GÃ³mez AlbarrÃ¡n
  */
 template <class T>
 class Pila {
 public:
 
      /*
-	 * COMPLEJIDAD: Determina justificadamente la complejidad de esta operación.
+	 * COMPLEJIDAD: Determina justificadamente la complejidad de esta operaciÃ³n.
 	 *	O(n) ya que siempre se va a tener que recorrer la pila al menos una vez.
 	 */
 	Pila<T> hanoificar() {
 		// A IMPLEMENTAR
-		Pila<T> ret;
-		if (!esVacia()) {
-			Nodo* it = _cima;
-			Nodo* c = _cima;
-			Nodo* m = nullptr;
-			Nodo* cm = nullptr;
+		Pila <T> ret;
 
-			while (it->_sig != nullptr) {
-				if (it->_sig->_elem <= it->_elem) {
-					if (ret._cima == nullptr) {
-						ret._cima = it->_sig;
-						cm = ret._cima;
-					}
-					else {
-						cm->_sig = it->_sig;
-						cm = cm->_sig;
-					}
-					m = it->_sig;
-					it->_sig = m->_sig;
-					m->_sig = nullptr;
+		if (!esVacia()) {
+			int max = 0;
+			Nodo * act = _cima, * ant = nullptr, *elem_ret = nullptr;
+
+			while (act != nullptr) {
+				if (act->_elem > max) {
+					max = act->_elem;
+					ant = act;
+					act = act->_sig;
 				}
 				else {
-					it = it->_sig;
+					ant->_sig = act->_sig;
+					act->_sig = nullptr;
+
+					if (elem_ret == nullptr) {
+						ret._cima = act;
+						elem_ret = ret._cima;
+					}
+					else {
+						elem_ret->_sig = act;
+						elem_ret = elem_ret->_sig;
+					}
+
+					act = ant->_sig;
 				}
 			}
 		}
+
 		return ret;
 	}
 
 
 
-	/** Constructor; operación PilaVacia */
+	/** Constructor; operaciÃ³n PilaVacia */
 	Pila() : _cima(NULL) {
 	}
 	
 	/**
-	 Apila un elemento. Operación generadora.
+	 Apila un elemento. OperaciÃ³n generadora.
 
 	 @param elem Elemento a apilar.
 	*/
@@ -95,9 +99,9 @@ public:
 	}
 	
 	/**
-	 Desapila un elemento. Operación modificadora parcial.
+	 Desapila un elemento. OperaciÃ³n modificadora parcial.
 
-	 error: falla si la pila está vacía
+	 error: falla si la pila estÃ¡ vacÃ­a
 	*/
 	void desapila() {
 		if (esVacia())
@@ -108,10 +112,10 @@ public:
 	}
 
 	/**
-	 Devuelve el elemento en la cima de la pila. Operación
+	 Devuelve el elemento en la cima de la pila. OperaciÃ³n
 	 observadora parcial.
 
-	 error: falla si la pila está vacía.
+	 error: falla si la pila estÃ¡ vacÃ­a.
 	 @return Elemento en la cima de la pila.
 	 */
 	const T &cima() const {
@@ -121,9 +125,9 @@ public:
 	}
 
 	/**
-	 Devuelve true si la pila no tiene ningún elemento.
+	 Devuelve true si la pila no tiene ningÃºn elemento.
 
-	 @return true si la pila no tiene ningún elemento.
+	 @return true si la pila no tiene ningÃºn elemento.
 	 */
 	bool esVacia() const {
 		return _cima == NULL;
@@ -140,16 +144,16 @@ public:
 		copia(other);
 	}
 
-	/** Operador de asignación */
+	/** Operador de asignaciÃ³n */
 	Pila<T> &operator=(const Pila<T> &other) {
-		if (this != &other) { // no se intenta copiar una pila sobre sí misma
+		if (this != &other) { // no se intenta copiar una pila sobre sÃ­ misma
 			libera();
 			copia(other);
 		}
 		return *this;
 	}
 
-	/** Operador de comparación. */
+	/** Operador de comparaciÃ³n. */
 	bool operator==(const Pila<T> &rhs) const {
 		Nodo *cima1 = _cima;
 		Nodo *cima2 = rhs._cima;
@@ -176,8 +180,8 @@ private:
 	
 	/**
 	 Clase nodo que almacena internamente el elemento (de tipo T),
-	 y un puntero al nodo siguiente, que podría ser NULL si
-	 el nodo es el último de la lista enlazada.
+	 y un puntero al nodo siguiente, que podrÃ­a ser NULL si
+	 el nodo es el Ãºltimo de la lista enlazada.
 	 */
 	class Nodo {
 	public:
