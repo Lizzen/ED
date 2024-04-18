@@ -1,5 +1,5 @@
 /**
-  NOMBRE Y APELLIDOS: David Ferreras Díaz
+  NOMBRE Y APELLIDOS: David Ferreras DÃ­az
   USUARIO DE DOMJUDGE USADO EN EL EXAMEN:
 */
 
@@ -12,32 +12,31 @@ using namespace std;
 
 /*
 *  COMPLEJIDAD: Determina justificadamente la complejidad 
-*	O(n) ya que se tiene que recorrer todos los nodos del árbol. 
+*	O(n) ya que se tiene que recorrer todos los nodos del Ã¡rbol. 
 * 
 */
 bool es_rebuscado_aux(const Arbin<int>& a, int& minimo) {
 	// A IMPLEMENTAR
-	if (a.esVacio()) {
-		return true;
-	}
-	else if (a.hijoDer().esVacio() && a.hijoIz().esVacio()) {
+	if (!a.esVacio()) {
+		bool der, iz;
+		int min_der = minimo, min_iz = minimo;
+
+		der = es_rebuscado_aux(a.hijoDer(), min_der);
+		iz = es_rebuscado_aux(a.hijoIz(), min_iz);
+
 		minimo = a.raiz();
-		return true;
-	}
-	
-	
-	bool izq, der;
-	int min1 = minimo, min2 = minimo;
-	izq = es_rebuscado_aux(a.hijoIz(), min1);
-	der = es_rebuscado_aux(a.hijoDer(), min2);
-
-	if (izq && der && min1 != a.raiz() && min2 != a.raiz()) {
-		minimo = min(min1, a.raiz());
-		minimo = min(min2, min1);
-		return true;
+		if (der && iz && min_der != minimo && min_iz != minimo) {
+			if (min_der > min_iz) {
+				minimo = min(min_iz, minimo);
+			}
+			else {
+				minimo = min(min_der, minimo);
+			}
+		}
+		else { return false; }
 	}
 
-	return false;
+	return true;
 }
 
 bool es_rebuscado(const Arbin<int>& a) {
