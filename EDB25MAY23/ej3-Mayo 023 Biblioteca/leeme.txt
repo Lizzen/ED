@@ -1,0 +1,234 @@
+Material proporcionado
+======================
+main3.cpp: El programa principal que lee y ejecuta casos. 
+Dicho programa NO debe modificarse.
+
+biblioteca.h:  Definición de la parte pública de la clase "Biblioteca"
+y otras definiciones auxiliares. A esta definición 
+deben añadirse los detalles de representación, en la parte privada. 
+Así mismo, en este archivo podrán realizarse las definiciones auxiliares 
+e inclusiones de bibliotecas que se consideren oportunas.
+
+biblioteca.cpp: Aquí deben implementarse las operaciones del TAD.
+Aparte de implementar los distintos métodos de la clase, deberá indicarse
+y justificarse su complejidad en los comentarios que los preceden.
+En este archivo puede implementarse también todos aquellos métodos 
+auxiliares que se consideren oportunos. 
+
+IMPORTANTE: Debes incluir también tu nombre y apellidos y tu usuario del juez
+al comienzo del comentario que aparece para tal fin en biblioteca.h y biblioteca.cpp
+
+
+Formato de los archivos de entrada y respuestas para las entradas
+=================================================================
+El main lee y ejecuta una serie de órdenes correspondientes a
+acciones a realizar sobre un sistema para la gestión de la biblioteca.
+Cada archivo de entrada contiene una sucesión de órdenes.
+
+Las posibles órdenes son las siguientes (se indica la respuesta asociada a la orden)
+
+- registraLibro sign nej
+Añade un libro con signatura 'sign' y nº de ejemplares existentes 'nej'.
+Como respuesta imprime REGISTRO_LIBRO_OK si la signatura no está en el sistema 
+o ERROR_LIBRO_DUPLICADO en caso contrario.
+
+- registraSocio codigo nombre
+Añade un nuevo socio con código de identificación 'codigo' y nombre 'nombre'.
+El nombre es una cadena sin espacios en blanco.
+Como respuesta imprime REGISTRO_SOCIO_OK si el código de identificación no está en el sistema, 
+o bien ERROR_SOCIO_DUPLICADO en caso contrario.
+
+- prestaLibro sign codigo fecha
+Presta el libro con signatura 'sign' al socio con código de identificación 'codigo' siendo 'fecha'
+la fecha en la que deberá devolverse, o coloca al socio al final de la lista de espera del libro en caso 
+de que todas los ejemplares disponibles estén ya prestados.
+Como respuesta imprime PRESTAMO_PREVIO si el préstamo no se realiza porque el socio ya tiene prestado un ejemplar 
+del libro con esa signatura, PRESTAMO_OK si el préstamo se realiza, EN_ESPERA si se coloca al socio al final de 
+la lista de espera del libro, o bien ERROR_PRESTAMO si no existen el libro o el socio.
+ 
+- primeraEspera sign
+Visualiza por pantalla el código de identificación y el nombre del primer socio que se encuentra en la lista
+de espera del libro con signatura 'sign'.
+Como respuesta imprime:
+PRIMERA ESPERA PARA SIGNATURA seguido de la signatura 'sign', y el símbolo = seguido del código y el nombre del primer socio separados por un guión
+si hay socio en espera, 
+ERROR_LISTA_ESPERA_VACIA si la lista de espera está vacía,
+o bien ERROR_LIBRO_INEXISTENTE si el libro con signatura 'sign' no está en el sistema.
+
+- prestados codigo
+Visualiza las signaturas y fechas de devolución de los libros que tiene prestados el socio con código de identificación 'codigo',
+ordenadas crecientemente por signatura de los libros prestados. 
+Como respuesta imprime PRESTADOS: seguido de las signaturas y las fechas de los libros prestados (separados con //) si tiene libros prestados 
+(o simplemente PRESTADOS: si no tiene libros prestados),
+o bien ERROR_SOCIO_INEXISTENTE si el socio no está en el sistema.
+
+- devolver sign codigo fecha
+Devuelve el libro con signatura 'sign' que tiene prestado el socio con código de identificación 'codigo'. 
+Usa 'fecha' como fecha de devolución del potencial préstamo automático que se realice del ejemplar devuelto, 
+en caso de haber socios en espera del libro.
+Como respuesta imprime DEVOLUCION_OK si la devolución se pudo realizar, LIBRO_NO_PRESTADO_AL_SOCIO si el socio 
+no tiene prestado ese libro, o bien ERROR_DEVOLUCION si no exiten el libro o el socio.
+
+
+A continuación puedes encontrar varios ejemplos de entrada con su salida asociada.
+
+
+EJEMPLO DE ENTRADA 1 (pruebas básicas para añadir libro)
+====================
+registraLibro 1 1
+registraLibro 2 3
+registraLibro 1 10
+
+EJEMPLO DE SALIDA 1
+===================
+REGISTRO_LIBRO_OK
+REGISTRO_LIBRO_OK
+ERROR_LIBRO_DUPLICADO
+
+
+EJEMPLO DE ENTRADA 2 (pruebas básicas para añadir socio)
+====================
+registraSocio 10 Alba
+registraSocio 20 Lucas
+registraSocio 20 Mario
+
+EJEMPLO DE SALIDA 2
+===================
+REGISTRO_SOCIO_OK
+REGISTRO_SOCIO_OK
+ERROR_SOCIO_DUPLICADO
+
+
+EJEMPLO DE ENTRADA 3 (pruebas básicas para préstamo de libros)
+====================
+registraLibro 1 1
+registraSocio 10 Alba
+prestaLibro 2 10 15/06/2023
+prestaLibro 1 20 15/06/2023
+prestaLibro 1 10 30/06/2023
+prestaLibro 1 10 01/07/2023
+registraSocio 20 Lucas
+prestaLibro 1 20 15/06/2023
+
+EJEMPLO DE SALIDA 3
+===================
+REGISTRO_LIBRO_OK
+REGISTRO_SOCIO_OK
+ERROR_PRESTAMO
+ERROR_PRESTAMO
+PRESTAMO_OK
+PRESTAMO_PREVIO
+REGISTRO_SOCIO_OK
+EN_ESPERA
+
+
+EJEMPLO DE ENTRADA 4 (pruebas básicas para visualizar la lista de espera)
+====================
+primeraEspera 1
+registraLibro 1 1
+primeraEspera 1
+registraSocio 10 Alba
+prestaLibro 1 10 01/07/2023
+primeraEspera 1
+registraSocio 20 Lucas
+prestaLibro 1 20 15/06/2023
+primeraEspera 1
+
+EJEMPLO DE SALIDA 4
+===================
+ERROR_LIBRO_INEXISTENTE
+REGISTRO_LIBRO_OK
+ERROR_LISTA_ESPERA_VACIA
+REGISTRO_SOCIO_OK
+PRESTAMO_OK
+ERROR_LISTA_ESPERA_VACIA
+REGISTRO_SOCIO_OK
+EN_ESPERA
+PRIMERA ESPERA PARA SIGNATURA 1 = 20 - Lucas
+
+
+EJEMPLO DE ENTRADA 5 (pruebas básicas para visualizar libros prestados a socio)
+====================
+registraLibro 1 1
+registraLibro 2 3
+registraLibro 3 4
+prestados 10
+registraSocio 10 Alba
+prestados 10
+prestaLibro 1 10 30/06/2023
+prestados 10
+prestaLibro 3 10 01/07/2023
+prestados 10
+prestaLibro 2 10 15/07/2023
+prestados 10
+
+EJEMPLO DE SALIDA 5
+===================
+REGISTRO_LIBRO_OK
+REGISTRO_LIBRO_OK
+REGISTRO_LIBRO_OK
+PRESTADOS: ERROR_SOCIO_INEXISTENTE
+REGISTRO_SOCIO_OK
+PRESTADOS:
+PRESTAMO_OK
+PRESTADOS: 1 - 30/06/2023  //
+PRESTAMO_OK
+PRESTADOS: 1 - 30/06/2023  //  3 - 01/07/2023  //
+PRESTAMO_OK
+PRESTADOS: 1 - 30/06/2023  //  2 - 15/07/2023  //  3 - 01/07/2023  //
+
+
+EJEMPLO DE ENTRADA 6
+====================
+devolver 1 10 01/06/2023
+registraLibro 1 1
+devolver 1 10 01/06/2023
+registraSocio 10 Alba
+devolver 1 10 01/06/2023
+prestaLibro 1 10 30/06/2023
+prestados 10
+devolver 1 10 30/09/2023
+prestados 10
+registraSocio 20 Lucas
+prestaLibro 1 20 15/06/2023
+primeraEspera 1
+prestaLibro 1 10 15/07/2023
+primeraEspera 1
+registraSocio 30 Mario
+prestaLibro 1 30 30/07/2023
+prestaLibro 1 10 15/08/2023
+devolver 1 20 31/12/2013
+primeraEspera 1
+prestados 10
+devolver 1 10 01/01/2024
+primeraEspera 1
+prestados 30
+
+EJEMPLO DE SALIDA 6
+===================
+ERROR_DEVOLUCION
+REGISTRO_LIBRO_OK
+ERROR_DEVOLUCION
+REGISTRO_SOCIO_OK
+LIBRO_NO_PRESTADO_AL_SOCIO
+PRESTAMO_OK
+PRESTADOS: 1 - 30/06/2023  //
+DEVOLUCION_OK
+PRESTADOS:
+REGISTRO_SOCIO_OK
+PRESTAMO_OK
+ERROR_LISTA_ESPERA_VACIA
+EN_ESPERA
+PRIMERA ESPERA PARA SIGNATURA 1 = 10 - Alba
+REGISTRO_SOCIO_OK
+EN_ESPERA
+EN_ESPERA
+DEVOLUCION_OK
+PRIMERA ESPERA PARA SIGNATURA 1 = 30 - Mario
+PRESTADOS: 1 - 31/12/2013  //
+DEVOLUCION_OK
+PRIMERA ESPERA PARA SIGNATURA 1 = 10 - Alba
+PRESTADOS: 1 - 01/01/2024  //
+
+
+
