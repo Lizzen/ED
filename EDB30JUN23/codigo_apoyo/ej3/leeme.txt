@@ -1,0 +1,265 @@
+Material proporcionado
+======================
+main3.cpp: El programa principal que lee y ejecuta casos. 
+Dicho programa NO debe modificarse.
+
+Apetitoxo.h:  Definición de la parte pública de la clase "Apetitoxo"
+y otras definiciones auxiliares. A esta definición 
+deben añadirse los detalles de representación, en la parte privada. 
+Así mismo, en este archivo podrán realizarse las definiciones auxiliares 
+e inclusiones de bibliotecas que se consideren oportunas.
+
+Apetitoxo.cpp: Aquí deben implementarse las operaciones del TAD.
+Aparte de implementar los distintos métodos de la clase, deberá indicarse
+y justificarse su complejidad en los comentarios que los preceden.
+En este archivo puede implementarse también todos aquellos métodos 
+auxiliares que se consideren oportunos. 
+
+IMPORTANTE: Debes incluir también tu nombre y apellidos y tu usuario del juez
+al comienzo del comentario que aparece para tal fin en Apetitoxo.h y Apetitoxo.cpp
+
+
+Formato de los archivos de entrada y respuestas para las entradas
+=================================================================
+El main lee y ejecuta una serie de órdenes correspondientes a
+acciones a realizar sobre un sistema para la gestión de las reservas.
+Cada archivo de entrada contiene una sucesión de órdenes.
+
+Las órdenes son las siguientes (se indica la respuesta asociada a la orden):
+
+- admite dni fecha
+Añade una solicitud de espera para el dni 'dni' y la fecha 'fecha'.
+Como respuesta imprime OK si solicitud de reserva puede registrarse 
+o CLIENTE EN LA FILA en caso contrario (hay un cliente con ese dni esperando en la fila de reservas).
+
+- enEspera dni
+Consulta la fecha de la solicitud de reserva del cliente con dni 'dni'.
+Como respuesta imprime 'Fecha solicitada: ' seguido de la fecha si el dni indicado tiene una solicitud de reserva
+o bien NO EN ESPERA en caso contrario.
+
+- primero
+Obtiene el dni de la primera solicitud de reserva de la fila de espera.
+Como respuesta imprime 'Primera solicitud: ' seguido del dni si la fila de espera no está vacía
+o bien NO HAY SOLICITUDES en caso contrario.
+ 
+- atiende
+Realiza la reserva correspondiente a la primera solicitud de reserva en espera.
+Como respuesta imprime OK si la primera solicitud de reserva puede atenderse (la reserva puede efectuarse), 
+o bien SIN EFECTO si no hay solicitudes que atender o sí hay pero la primera solicitud no puede convertirse en reserva.
+
+- disponible fecha
+Comprueba si la fecha 'fecha' está disponible para poder ser reservada. 
+Como respuesta imprime SI si está disponible o bien NO en caso contrario.
+
+- reservas
+Genera un listado de las reservas realizadas, ordenado crecientemente por fecha.
+Como respuesta imprime 'Reservas: ' seguido del par fecha y dni de cada reserva realizada 
+o bien simplemente 'Reservas: ' si no hay reservas realizadas.
+
+- cede dniCede dniNuevo fechaNuevo
+Lleva a cabo la cesión del puesto que tiene el dni 'dniCede' en la fila de espera al dni 'dniNuevo' para
+una solicitud de reserva de fecha 'fechaNuevo' que efectúa este último.
+Como respuesta imprime OK si la cesión puede realizarse 
+o bien NO SE CEDE PUESTO en caso contrario (si el cliente con DNI dniCede no ha solicitado una reserva
+o el cliente con DNI dniNuevo ya tiene una solicitud de reserva en el sistema).
+
+
+A continuación puedes encontrar varios ejemplos de entrada con su salida asociada.
+
+
+EJEMPLO DE ENTRADA 1: pruebas annadeSolicitud
+====================
+admite 1 2024-01-01
+admite 2 2024-01-01
+admite 3 2024-01-02
+admite 1 2024-01-31
+
+
+EJEMPLO DE SALIDA 1
+===================
+OK
+OK
+OK
+CLIENTE EN LA FILA
+
+
+EJEMPLO DE ENTRADA 2: pruebas enEspera
+====================
+admite 1 2024-01-01
+admite 2 2024-01-31
+enEspera 1
+enEspera 2
+enEspera 3
+
+
+EJEMPLO DE SALIDA 2
+===================
+OK
+OK
+Fecha solicitada: 2024-01-01
+Fecha solicitada: 2024-01-31
+NO EN ESPERA
+
+
+EJEMPLO DE ENTRADA 3: pruebas primeroEnEspera
+====================
+primero
+admite 1 2024-01-01
+primero
+admite 2 2024-01-31
+primero
+enEspera 2
+
+
+EJEMPLO DE SALIDA 3
+===================
+NO HAY SOLICITUDES
+OK
+Primera solicitud: 1
+OK
+Primera solicitud: 1
+Fecha solicitada: 2024-01-31
+
+
+
+EJEMPLO DE ENTRADA 4: pruebas atiendeSolicitud
+====================
+atiende
+admite 1 2024-01-01
+primero
+enEspera 1
+atiende
+admite 2 2024-01-01
+primero
+enEspera 2
+atiende
+primero
+enEspera 2
+
+
+EJEMPLO DE SALIDA 4
+===================
+SIN EFECTO
+OK
+Primera solicitud: 1
+Fecha solicitada: 2024-01-01
+OK
+OK
+Primera solicitud: 2
+Fecha solicitada: 2024-01-01
+SIN EFECTO
+NO HAY SOLICITUDES
+NO EN ESPERA
+
+
+
+EJEMPLO DE ENTRADA 5: pruebas disponible
+====================
+disponible 2024-01-01
+admite 1 2024-01-01
+primero
+disponible 2024-01-01
+atiende
+primero
+enEspera 1
+disponible 2024-01-01
+
+
+EJEMPLO DE SALIDA 5
+===================
+SI
+OK
+Primera solicitud: 1
+SI
+OK
+NO HAY SOLICITUDES
+NO EN ESPERA
+NO
+
+
+EJEMPLO DE ENTRADA 6: pruebas reservas
+====================
+reservas
+admite 3 2024-01-31
+atiende
+reservas
+admite 4 2024-01-31
+atiende
+reservas
+admite 1 2024-01-01
+admite 2 2024-01-15
+atiende
+reservas
+atiende
+reservas
+atiende
+reservas
+
+EJEMPLO DE SALIDA 6
+===================
+Reservas:
+OK
+OK
+Reservas: 2024-01-31 - 3  //
+OK
+SIN EFECTO
+Reservas: 2024-01-31 - 3  //
+OK
+OK
+OK
+Reservas: 2024-01-01 - 1  //  2024-01-31 - 3  //
+OK
+Reservas: 2024-01-01 - 1  //  2024-01-15 - 2  //  2024-01-31 - 3  //
+SIN EFECTO
+Reservas: 2024-01-01 - 1  //  2024-01-15 - 2  //  2024-01-31 - 3  //
+
+
+EJEMPLO DE ENTRADA 7: pruebas cedePuesto
+====================
+admite 1 2024-01-01
+primero
+cede 2 10 2024-01-31
+admite 2 2024-01-31
+primero
+cede 1 2 2024-02-01
+primero
+cede 1 3 2024-03-01
+primero
+enEspera 3
+enEspera 1
+atiende
+primero
+cede 2 3 2024-03-31
+primero
+enEspera 3
+enEspera 2
+atiende
+primero
+enEspera 3
+reservas
+
+
+EJEMPLO DE SALIDA 7
+===================
+OK
+Primera solicitud: 1
+NO SE CEDE PUESTO
+OK
+Primera solicitud: 1
+NO SE CEDE PUESTO
+Primera solicitud: 1
+OK
+Primera solicitud: 3
+Fecha solicitada: 2024-03-01
+NO EN ESPERA
+OK
+Primera solicitud: 2
+OK
+Primera solicitud: 3
+Fecha solicitada: 2024-03-31
+NO EN ESPERA
+OK
+NO HAY SOLICITUDES
+NO EN ESPERA
+Reservas: 2024-03-01 - 3  //  2024-03-31 - 3  //
+

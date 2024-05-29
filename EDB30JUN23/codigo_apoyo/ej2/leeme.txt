@@ -1,0 +1,69 @@
+Material proporcionado
+======================
+main2.cpp: El programa principal que realiza la prueba del
+algoritmo solicitado y el prototipo de la función que 
+debe ejecutar dicho algoritmo (bool es_peculiar(const Arbin<int>& a)). 
+Aparte de dicha función, pueden implementarse todos
+los subprogramas auxiliares que se consideren oportunos.
+Debe indicarse, así mismo, la complejidad resultante
+en el comentario que precede a la función.
+
+IMPORTANTE: Deben ponerse el nombre y apellidos, así como el número de
+usuario en el juez asignado en el examen, al comienzo del archivo main2.cpp
+
+
+Formato de la entrada
+=====================
+Cada caso consta de la descripción de un árbol binario.
+Para describir los árboles se sigue el siguiente convenio:
+-Los árboles vacíos se escriben como #
+-Los árboles simples se escriben como [c],
+ con 'c' el contenido del nodo.
+-Los árboles compuestos se escriben como 
+ (IcD), donde: (i) I es el hijo izquierdo;
+ (ii) c es el contenido de la raiz; 
+ (iii) D es el hijo derecho. 
+ 
+ La lista de casos se termina con un fin de fichero (CTRL^Z). 
+
+Formato de la salida
+====================
+Para cada caso se escribe SI si el arbol es peculiar,
+y NO si no lo es.
+
+Ejemplo de entrada
+==================
+#
+[5]
+([5]7#)
+(#7[5])
+([8]3#)
+(#3[8])
+
+([5]0[6])
+([6]0[5])
+([9]5#)
+(#5[9])
+
+(([5]0[6])1([9]5#))
+((#7[5])-1([8]3#))
+(([5]0[6])-1([9]5#))
+Salida asociada
+===============
+SI
+SI
+NO
+SI
+SI
+NO
+
+SI
+SI
+SI
+NO
+
+NO
+SI
+SI
+
+El penúltimo caso se corresponde con el árbol (a) del enunciado. El antepenúltimo caso con el árbol (b).
